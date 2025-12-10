@@ -1,0 +1,9 @@
+import seaborn as sns
+brooklyn_bridge_2019 = df[(df['location'] == 'Brooklyn Bridge') & (df['hour_beginning'].dt.year == 2019)]
+weather_summary_encoded = pd.get_dummies(brooklyn_bridge_2019['weather_summary'])
+encoded_data = pd.concat([weather_summary_encoded, brooklyn_bridge_2019['Pedestrians']], axis=1)
+correlation_matrix = encoded_data.corr()
+plt.figure(figsize=(10, 8))
+sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', fmt=".2f", linewidths=0.5)
+plt.title('Correlation Matrix of Weather Summary and Pedestrian Counts')
+plt.show()
