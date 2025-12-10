@@ -1,0 +1,22 @@
+def categorize_time_of_day(hour):
+    if 6<=hour<12:
+        return 'Morning'
+    elif 12<=hour<18:
+        return 'Afternoon'
+    elif 18<=hour<24:
+        return 'Evening'
+    else:
+        return 'Night'
+df['time_of_day'] = df['hour_beginning'].dt.hour.apply(categorize_time_of_day)
+ped_counts_per_time_of_day = df.groupby('time_of_day')['Pedestrians'].sum()
+print("Pedestrian Activity Patterns Throughout the Day:")
+print(ped_counts_per_time_of_day)
+
+
+Pedestrian Activity Patterns Throughout the Day:
+time_of_day
+Afternoon    6803093
+Evening      1710794
+Morning      2466776
+Night          52203
+Name: Pedestrians, dtype: int64
